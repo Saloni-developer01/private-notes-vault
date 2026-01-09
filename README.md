@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🔐 Private Notes Vault
 
-## Getting Started
+A secure, full-stack private notes application built with **Next.js 15**, **MongoDB**, and **NextAuth.js**. This project features dual-authentication (Google OAuth + Email/Password) and a clean, distraction-free dashboard.
 
-First, run the development server:
+## 🚀 Live Demo
+[Click here to view the Live Site](https://your-netlify-link-here.netlify.app) 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
+- **Dual Authentication**: Sign in using Google or create a traditional Email/Password account.
+- **Secure Storage**: Passwords are encrypted using `bcryptjs`.
+- **Note Management**: Create, view, and delete notes in real-time.
+- **Single Note View**: Click on any note to open a detailed modal view.
+- **Responsive Design**: Fully optimized for Mobile, Tablet, and Desktop.
+- **Modern UI**: Built with Tailwind CSS and Lucide React icons.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
+- **Frontend**: Next.js (App Router), Tailwind CSS, Lucide Icons
+- **Backend**: Next.js API Routes
+- **Database**: MongoDB Atlas with Mongoose
+- **Auth**: NextAuth.js (Google Provider & Credentials)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📦 Installation & Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repo:**
+   ```bash
+   git clone [https://github.com/your-username/private-notes-vault.git](https://github.com/your-username/private-notes-vault.git)
 
-## Learn More
+2. **Install dependencies:**
+    ```bash
+    npm install
 
-To learn more about Next.js, take a look at the following resources:
+3. **Set up environment variables:** Create a .env.local file and add:
+    ```bash
+    MONGODB_URI=your_mongodb_uri
+    GOOGLE_ID=your_google_id
+    GOOGLE_SECRET=your_google_secret
+    NEXTAUTH_SECRET=your_random_secret
+    NEXTAUTH_URL=http://localhost:3000
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run the app:**
+    ```bash
+    npm run dev
+    

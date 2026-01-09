@@ -139,9 +139,9 @@ const handleAuth = async (e) => {
         <button onClick={() => signOut()} className="flex items-center gap-2 text-slate-500 hover:text-red-600 font-medium transition">
           {/* <span className="hidden sm:block text-sm font-medium text-slate-700">Hello, {session.user.name || session.user.email.split('@')[0]}</span> <LogOut size={20} /> */}
 
-          <span className="hidden sm:block text-sm font-medium text-slate-700">
+          <span className="text-sm font-medium text-slate-700 truncate max-w-[100px] sm:max-w-none">
   Hello, {session.user.name || session.user.email.split('@')[0]}
-</span> <LogOut size={20} />
+</span><LogOut size={20} />
         </button>
       </nav>
 
