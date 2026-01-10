@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Note from "@/models/Note";
 import { NextResponse } from "next/server";
 
-// 1. Saare notes GET karne ke liye
+// 1. Sare notes GET krne ke liye
 export async function GET(request) {
   try {
     await connectDB();
@@ -16,7 +16,7 @@ export async function GET(request) {
   }
 }
 
-// 2. Naya note POST karne ke liye
+// 2. Naya note POST krne ke liye
 export async function POST(request) {
   try {
     await connectDB();

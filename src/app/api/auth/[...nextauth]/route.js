@@ -16,43 +16,21 @@ const handler = NextAuth({
       async authorize(credentials) {
         await connectDB();
         const user = await User.findOne({ email: credentials.email });
-        // if (user && (await bcrypt.compare(credentials.password, user.password))) {
-        //   // Yahan 'name' return karna bohot zaroori hai
-        //   return { id: user._id, email: user.email, name: user.name }; 
-        // }
 
         if (user && (await bcrypt.compare(credentials.password, user.password))) {
-          // 2. YAHAN DHAYAN DEIN: explicitly name field return karein
           return { 
             id: user._id.toString(), 
             email: user.email, 
-            name: user.name // <--- Ye line missing ho sakti hai
+            name: user.name 
           };
         }
         return null;
       },
     }),
   ],
-//   callbacks: {
-//     // Ye function name ko session mein save karega
-//     async session({ session, token }) {
-//       if (token) {
-//         session.user.id = token.id;
-//         session.user.name = token.name;
-//       }
-//       return session;
-//     },
-//     async jwt({ token, user }) {
-//       if (user) {
-//         token.id = user.id;
-//         token.name = user.name;
-//       }
-//       return token;
-//     }
-//   },
+
 
 callbacks: {
-    // 3. JWT token mein user details save karein
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -60,7 +38,6 @@ callbacks: {
       }
       return token;
     },
-    // 4. Session mein token se data pass karein frontend ke liye
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
