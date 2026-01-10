@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import {Plus,Trash2,LogOut,X,Eye,Pencil,Check,Inbox,Search} from "lucide-react";
+import {Plus,Trash2,LogOut,X,Eye,Pencil,Check,Inbox,Search,} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
@@ -193,34 +193,38 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-20 font-sans">
-      <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+
+      <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center sticky top-0 z-50">
         <div className="flex items-center gap-1">
-          <img src="logo.png" width={50} height={50} />
-          <h1 className="text-xl font-bold text-slate-800 mt-1">VaultNote</h1>
+          <img src="logo.png" className="w-8 h-8 md:w-12 md:h-12" alt="Logo" />
+          <h1 className="text-lg md:text-xl font-bold text-slate-800 mt-1">
+            VaultNote
+          </h1>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="text-md font-bold text-slate-700 mt-1">
+        <div className="flex items-center gap-2 md:gap-4">
+          <div className="hidden sm:block text-sm md:text-md font-bold text-slate-700 mt-1">
             <span className="text-slate-400 font-medium">Hi,</span>{" "}
             {session.user.name?.split(" ")[0] ||
               session.user.email.split("@")[0]}
           </div>
-          <div
-            className="flex items-center gap-3  rounded-full border"
-            style={{ border: "2px solid #FFC941" }}
-          >
+
+          {/* Profile Image */}
+          <div className="flex items-center justify-center rounded-full border-2 border-[#FFC941] overflow-hidden w-8 h-8 md:w-10 md:h-10">
             <img
               src="profile.jpg"
               alt="Profile"
-              className="w-8 h-8 rounded-full shadow-sm"
+              className="w-full h-full object-cover shadow-sm"
             />
           </div>
 
+          {/* Logout Button */}
           <button
             onClick={() => signOut()}
-            className="p-2.5 bg-white text-slate-500 rounded-xl border border-slate-200 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all shadow-sm cursor-pointer"
+            className="p-2 md:p-2.5 bg-white text-slate-500 rounded-xl border border-slate-200 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all shadow-sm cursor-pointer"
+            title="Logout"
           >
-            <LogOut size={18} />
+            <LogOut size={16} className="md:w-[18px]" />
           </button>
         </div>
       </nav>
@@ -297,6 +301,7 @@ export default function Home() {
           </div>
         </motion.form>
 
+        {/* { SEARCH SECTION } */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
           <h3 className="font-bold text-slate-600 uppercase text-xs tracking-[0.1em]">
             Your Notes • {filteredNotes.length}
