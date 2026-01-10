@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import {Plus,Trash2,LogOut,X,Eye,Pencil,Check,Inbox} from "lucide-react";
+import {Plus,Trash2,LogOut,X,Eye,Pencil,Check,Inbox,Search} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
@@ -10,6 +10,7 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -99,7 +100,12 @@ export default function Home() {
     }
   };
 
-  // Login & Signup form
+  const filteredNotes = notes.filter(
+    (note) =>
+      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (!session) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 p-4 font-sans">
@@ -236,10 +242,10 @@ export default function Home() {
         <motion.form
           layout
           onSubmit={isEditing ? updateNote : addNote}
-          className={`bg-white p-6 rounded-3xl shadow-sm border-2 transition-all duration-300 ${
+          className={`bg-white p-6 rounded-3xl shadow-lg border-2 transition-all duration-300 ${
             isEditing
               ? "border-amber-200 shadow-amber-50"
-              : "border-white focus-within:border-blue-100"
+              : "border-[#ccceff] focus-within:border-[#292E93]"
           } mb-10`}
         >
           <input
@@ -291,15 +297,29 @@ export default function Home() {
           </div>
         </motion.form>
 
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
           <h3 className="font-bold text-slate-600 uppercase text-xs tracking-[0.1em]">
-            Your Notes • {notes.length}
+            Your Notes • {filteredNotes.length}
           </h3>
+
+          <div className="relative w-full md:w-64">
+            <Search
+              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            />
+            <input
+              type="text"
+              placeholder="Search vault..."
+              className="w-full pl-10 pr-4 py-2 bg-white rounded-xl border border-slate-200 text-sm outline-none focus:border-[#2A2E94] transition-all shadow-sm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
 
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <AnimatePresence mode="popLayout">
-            {notes.map((note) => (
+            {filteredNotes.map((note) => (
               <motion.div
                 key={note._id}
                 layout
@@ -345,7 +365,7 @@ export default function Home() {
           </AnimatePresence>
         </motion.div>
 
-        {notes.length === 0 && (
+        {filteredNotes.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -353,7 +373,7 @@ export default function Home() {
           >
             <Inbox className="mx-auto text-slate-300 w-16 h-16 mb-4" />
             <h3 className="text-slate-400 font-bold uppercase text-xs tracking-widest">
-              Vault is empty
+              {searchQuery ? "No matching notes found" : "Vault is empty"}
             </h3>
           </motion.div>
         )}
