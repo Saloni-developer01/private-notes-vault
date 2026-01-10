@@ -35,3 +35,23 @@ export async function DELETE(request, { params }) {
     return NextResponse.json({ error: "Failed to delete note" }, { status: 500 });
   }
 }
+
+
+// Isi file mein niche add karein
+export async function PUT(request, { params }) {
+  try {
+    await connectDB();
+    const { id } = await params;
+    const { title, content } = await request.json();
+
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { title, content },
+      { new: true }
+    );
+
+    return NextResponse.json(updatedNote);
+  } catch (error) {
+    return NextResponse.json({ error: "Update failed" }, { status: 500 });
+  }
+}
